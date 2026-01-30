@@ -1,0 +1,22 @@
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /dashboard/
+
+# Disallow checkout and payment pages
+Disallow: /checkout
+Disallow: /payment/
+
+# Allow specific pages
+Allow: /about
+Allow: /subscriptions
+Allow: /browse/
+Allow: /tutorials
+Allow: /support
+
+# Sitemap location
+Sitemap: https://vistratv.com/sitemap.xml
