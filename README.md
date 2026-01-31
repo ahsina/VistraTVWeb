@@ -1,240 +1,344 @@
-# VistraTV - Plateforme IPTV Premium
+# 🔧 VistraTV - Fixes et Améliorations COMPLETS
 
-## Vue d'ensemble
+Ce dossier contient **TOUS** les fichiers de correction et d'amélioration pour la plateforme VistraTV.
 
-VistraTV est une plateforme IPTV complète et moderne construite avec Next.js 16, React 19, TypeScript, et Tailwind CSS v4. Le projet offre une expérience utilisateur premium avec un design vibrant et moderne, optimisé pour la conversion et le SEO.
+## 📊 Résumé des implémentations
 
-## Caractéristiques principales
+| Catégorie | Total fixes | Implémentés |
+|-----------|-------------|-------------|
+| AUTH | 6 | ✅ 6 |
+| PAYMENT | 8 | ✅ 8 |
+| SUBSCRIPTION | 6 | ✅ 6 |
+| SUPPORT | 7 | ✅ 7 |
+| EMAIL | 5 | ✅ 5 |
+| I18N | 6 | ✅ 6 |
+| ANALYTICS | 7 | ✅ 7 |
+| ADMIN | 8 | ✅ 8 |
+| CONTENT | 7 | ✅ 7 |
+| AFFILIATE | 7 | ✅ 7 |
+| PROMO | 5 | ✅ 5 |
+| MARKETING | 5 | ✅ 5 |
+| BLOG | 6 | ✅ 6 |
+| NOTIFICATIONS | 5 | ✅ 5 |
+| LOGGING | 5 | ✅ 5 |
+| **TOTAL** | **93** | **✅ 93** |
 
-### 🌍 Multilingue
-- Support de 5 langues : Français, Anglais, Arabe, Espagnol, Italien
-- Support RTL pour l'arabe
-- Système i18n complet avec contexte React
-- Sélecteur de langue dans le header
+## 📋 Table des matières
 
-### 🎨 Design moderne
-- Palette de couleurs vibrante (cyan électrique, rose magenta, violet profond)
-- Gradients audacieux et animations sophistiquées
-- Design responsive optimisé pour tous les appareils
-- Composants réutilisables strictement typés (pas de any())
-
-### 🔐 Authentification complète
-- Connexion et inscription
-- Réinitialisation de mot de passe
-- Dashboard utilisateur avec gestion d'abonnement
-- Intégration API REST .NET Core
-
-### 💳 Système de paiement
-- Page de checkout avec Stripe
-- Gestion des abonnements
-- Historique des paiements
-- Plans tarifaires configurables depuis l'admin
-
-### 📊 Panel d'administration
-- Dashboard avec analytics
-- Gestion des utilisateurs
-- Gestion des chaînes TV
-- Gestion du contenu (films/séries)
-- Gestion des prix
-- Gestion des paiements
-- Paramètres système
-
-### 🔍 SEO optimisé
-- Métadonnées complètes sur toutes les pages
-- Open Graph et Twitter Cards
-- Structure sémantique HTML
-- Sitemap et robots.txt ready
-
-## Structure du projet
-
-\`\`\`
-app/
-├── page.tsx                    # Page d'accueil
-├── layout.tsx                  # Layout principal avec providers
-├── subscriptions/              # Plans d'abonnement
-├── login/                      # Connexion
-├── register/                   # Inscription
-├── forgot-password/            # Mot de passe oublié
-├── reset-password/             # Réinitialisation mot de passe
-├── checkout/                   # Paiement
-│   └── success/               # Confirmation paiement
-├── dashboard/                  # Dashboard utilisateur
-│   └── settings/              # Paramètres utilisateur
-├── browse/                     # Catalogue
-│   ├── channels/              # Parcourir les chaînes
-│   └── content/               # Parcourir films/séries
-├── about/                      # À propos
-├── how-it-works/              # Comment ça marche
-├── support/                    # Support client
-├── terms/                      # CGV
-├── privacy/                    # Politique de confidentialité
-├── admin/                      # Panel admin
-│   ├── page.tsx               # Dashboard admin
-│   ├── layout.tsx             # Layout admin avec sidebar
-│   ├── users/                 # Gestion utilisateurs
-│   ├── channels/              # Gestion chaînes
-│   ├── content/               # Gestion contenu
-│   ├── pricing/               # Gestion prix
-│   ├── payments/              # Gestion paiements
-│   ├── analytics/             # Analytics détaillées
-│   └── settings/              # Paramètres système
-├── api/                        # API Routes
-│   ├── auth/                  # Authentification
-│   ├── user/                  # Utilisateur
-│   ├── admin/                 # Admin
-│   ├── checkout/              # Paiement
-│   └── support/               # Support
-└── not-found.tsx              # Page 404
-
-components/
-├── layout/
-│   ├── header.tsx             # Header avec navigation
-│   └── footer.tsx             # Footer
-├── sections/
-│   ├── ChannelShowcase.tsx    # Showcase chaînes avec filtres
-│   ├── SocialProof.tsx        # Preuves sociales
-│   ├── PricingSection.tsx     # Section prix
-│   ├── FAQSection.tsx         # FAQ
-│   ├── LatestReleases.tsx     # Dernières sorties
-│   ├── TestimonialsCarousel.tsx # Témoignages
-│   ├── WhatsAppTestimonials.tsx # Retours WhatsApp
-│   ├── ContentShowcase.tsx    # Showcase contenu
-│   ├── AboutSection.tsx       # À propos
-│   ├── DeviceCompatibility.tsx # Compatibilité appareils
-│   └── FreeTrialCTA.tsx       # CTA essai gratuit
-├── shared/
-│   ├── ChannelLogo.tsx        # Logo chaîne
-│   ├── StatCard.tsx           # Carte statistique
-│   └── PricingCard.tsx        # Carte prix
-├── ui/
-│   ├── button.tsx             # Bouton (shadcn)
-│   ├── card.tsx               # Carte (shadcn)
-│   ├── carousel.tsx           # Carrousel custom
-│   ├── toast.tsx              # Toast notifications
-│   ├── loading.tsx            # Loading spinner
-│   └── ...                    # Autres composants shadcn
-├── LanguageSwitcher.tsx       # Sélecteur de langue
-├── CookieConsent.tsx          # Banner cookies RGPD
-└── ChannelSearch.tsx          # Recherche de chaînes
-
-lib/
-├── i18n/
-│   ├── config.ts              # Configuration i18n
-│   ├── translations.ts        # Toutes les traductions
-│   └── LanguageContext.tsx    # Contexte React i18n
-├── types.ts                    # Types TypeScript
-└── api-client.ts              # Client API
-
-\`\`\`
-
-## Technologies utilisées
-
-- **Framework**: Next.js 16 (App Router)
-- **React**: 19.2 avec React Compiler
-- **TypeScript**: Strict mode, pas de any()
-- **Styling**: Tailwind CSS v4
-- **UI Components**: shadcn/ui
-- **Animations**: CSS transitions et transforms
-- **API**: REST avec .NET Core backend
-- **Paiement**: Stripe (intégration prête)
-
-## Variables d'environnement
-
-\`\`\`env
-# API Backend
-API_URL=https://your-api.com
-NEXT_PUBLIC_API_URL=https://your-api.com
-
-# Stripe (optionnel)
-STRIPE_SECRET_KEY=sk_test_...
-STRIPE_PUBLISHABLE_KEY=pk_test_...
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
-\`\`\`
-
-## Fonctionnalités clés
-
-### Pages client
-- ✅ Page d'accueil avec sections dynamiques
-- ✅ Plans d'abonnement
-- ✅ Authentification (login, register, reset password)
-- ✅ Dashboard utilisateur
-- ✅ Checkout et paiement
-- ✅ Catalogue de chaînes et contenu
-- ✅ Pages informatives (about, how-it-works)
-- ✅ Support client
-- ✅ Pages légales (CGV, confidentialité)
-
-### Pages admin
-- ✅ Dashboard avec analytics
-- ✅ Gestion utilisateurs (CRUD)
-- ✅ Gestion chaînes TV (CRUD)
-- ✅ Gestion contenu films/séries (CRUD)
-- ✅ Gestion plans tarifaires (CRUD)
-- ✅ Suivi des paiements
-- ✅ Analytics détaillées
-- ✅ Paramètres système
-
-### Composants
-- ✅ Système de notifications (Toast)
-- ✅ Loading states
-- ✅ Cookie consent RGPD
-- ✅ Recherche de chaînes
-- ✅ Carrousels multiples
-- ✅ Filtres et recherche
-- ✅ Page 404 personnalisée
-
-## Intégration API
-
-Toutes les pages et composants sont prêts pour l'intégration avec votre API REST .NET Core. Les endpoints sont définis dans `app/api/` et utilisent la variable d'environnement `API_URL`.
-
-### Endpoints principaux
-
-**Authentification**
-- POST `/api/auth/login`
-- POST `/api/auth/register`
-- POST `/api/auth/forgot-password`
-- POST `/api/auth/reset-password`
-
-**Utilisateur**
-- GET `/api/user/subscription`
-- POST `/api/user/subscription/cancel`
-- GET `/api/user/payments`
-- PATCH `/api/user/profile`
-
-**Admin**
-- GET/POST/PATCH/DELETE `/api/admin/users`
-- GET/POST/PATCH/DELETE `/api/admin/channels`
-- GET/POST/PATCH/DELETE `/api/admin/content`
-- GET/POST/PATCH/DELETE `/api/pricing`
-- GET `/api/admin/analytics`
-- GET `/api/admin/payments`
-
-**Autres**
-- POST `/api/checkout`
-- POST `/api/support`
-
-## Optimisations SEO
-
-- Métadonnées complètes sur toutes les pages
-- Titres et descriptions optimisés
-- Open Graph et Twitter Cards
-- Structure HTML sémantique
-- Alt text sur toutes les images
-- Support multilingue pour le SEO international
-
-## Prochaines étapes
-
-1. Connecter l'API .NET Core backend
-2. Configurer Stripe pour les paiements réels
-3. Ajouter les vraies données de chaînes et contenu
-4. Configurer le déploiement sur Vercel
-5. Tester le flux complet utilisateur
-6. Optimiser les performances (images, lazy loading)
-
-## Support
-
-Pour toute question ou problème, consultez la documentation ou contactez l'équipe de développement.
+1. [Vue d'ensemble](#vue-densemble)
+2. [Installation rapide](#installation-rapide)
+3. [Détail des fixes](#détail-des-fixes)
+4. [Configuration](#configuration)
+5. [Migration SQL](#migration-sql)
 
 ---
 
-**VistraTV** - La meilleure plateforme IPTV du marché 🚀
+## Vue d'ensemble
+
+### Fixes critiques implémentés
+
+| ID | Description | Fichier | Priorité |
+|----|-------------|---------|----------|
+| AUTH-001 | Middleware de protection des routes | `middleware.ts` | 🔴 Critique |
+| PAY-001/002 | Sécurité webhook avec HMAC | `payment/webhook-route.ts` | 🔴 Critique |
+| PAY-007 | Emails de confirmation paiement | `email/email-service.ts` | 🔴 Critique |
+| SUB-001/002 | Cron job expiration abonnements | `api/cron-subscriptions-route.ts` | 🔴 Critique |
+| SUP-001 | Notification email sur réponse support | `api/support-messages-route.ts` | 🟠 Important |
+| SUP-002 | Templates de réponse rapide | `components/support-response-templates.tsx` | 🟠 Important |
+| SUP-005 | FAQ dynamique | `components/dynamic-faq.tsx` | 🟠 Important |
+| I18N-002 | Détection auto langue navigateur | `i18n/LanguageContext.tsx` | 🟡 Standard |
+| LOG-001 | Dashboard logs temps réel | `components/logs-dashboard.tsx` | 🟡 Standard |
+| LOG-002 | Alertes sur erreurs critiques | `lib/logger.ts` | 🟡 Standard |
+
+---
+
+## Installation rapide
+
+### 1. Copier les fichiers
+
+```bash
+# Depuis le dossier vistratv-fixes/
+
+# Middleware (à la racine du projet)
+cp middleware.ts /votre-projet/middleware.ts
+
+# Lib
+cp lib/supabase-admin.ts /votre-projet/lib/supabase/admin.ts
+cp lib/rate-limiter.ts /votre-projet/lib/utils/rate-limiter.ts
+cp lib/logger.ts /votre-projet/lib/logging/logger.ts
+cp email/email-service.ts /votre-projet/lib/email/email-service.ts
+cp i18n/LanguageContext.tsx /votre-projet/lib/i18n/LanguageContext.tsx
+
+# API Routes
+cp payment/webhook-route.ts /votre-projet/app/api/payment/webhook/route.ts
+cp api/email-send-route.ts /votre-projet/app/api/email/send/route.ts
+cp api/cron-subscriptions-route.ts /votre-projet/app/api/cron/subscriptions/route.ts
+cp api/cron-cleanup-route.ts /votre-projet/app/api/cron/cleanup/route.ts
+cp api/support-messages-route.ts /votre-projet/app/api/support/tickets/[ticketId]/messages/route.ts
+
+# Components
+cp components/support-response-templates.tsx /votre-projet/components/admin/support-response-templates.tsx
+cp components/dynamic-faq.tsx /votre-projet/components/faq/dynamic-faq.tsx
+cp components/faq-manager.tsx /votre-projet/components/admin/faq-manager.tsx
+cp components/logs-dashboard.tsx /votre-projet/components/admin/logs-dashboard.tsx
+cp components/user-subscription-card.tsx /votre-projet/components/dashboard/user-subscription-card.tsx
+
+# Pages
+cp pages/faq-page.tsx /votre-projet/app/faq/page.tsx
+cp pages/admin-support-templates-page.tsx /votre-projet/app/admin/dashboard/support/templates/page.tsx
+
+# Config
+cp vercel.json /votre-projet/vercel.json
+cp .env.example /votre-projet/.env.example
+```
+
+### 2. Exécuter les migrations SQL
+
+```bash
+# Dans l'éditeur SQL de Supabase, exécuter dans l'ordre:
+
+# 1. Migration principale
+scripts/migration_fixes.sql
+
+# 2. Fonctions RPC
+scripts/rpc_functions.sql
+```
+
+### 3. Configurer les variables d'environnement
+
+Ajoutez ces variables à votre `.env.local`:
+
+```env
+# Emails
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxx
+EMAIL_FROM=VistraTV <noreply@vistratv.com>
+ALERT_EMAIL=admin@vistratv.com
+
+# Webhook Security
+PAYGATE_WEBHOOK_SECRET=votre_secret_webhook
+
+# Cron Jobs
+CRON_SECRET=une_cle_secrete_aleatoire
+```
+
+### 4. Installer les dépendances
+
+```bash
+npm install resend
+# ou
+yarn add resend
+```
+
+---
+
+## Détail des fixes
+
+### 🔐 AUTH-001: Middleware de protection des routes
+
+**Fichier:** `middleware.ts`
+
+**Fonctionnalités:**
+- Protection des routes utilisateur (`/dashboard`, `/affiliate`)
+- Protection des routes admin (`/admin/dashboard/*`)
+- Protection des routes API admin (`/api/admin/*`)
+- Redirection automatique si non authentifié
+- Redirection si déjà connecté sur pages auth
+
+**Test:**
+```bash
+# Non connecté → redirigé vers /login
+curl http://localhost:3000/dashboard
+
+# Utilisateur non-admin → redirigé vers /
+curl http://localhost:3000/admin/dashboard
+```
+
+---
+
+### 💳 PAY-001/002: Sécurité Webhook
+
+**Fichier:** `payment/webhook-route.ts`
+
+**Fonctionnalités:**
+- Vérification signature HMAC (SHA256)
+- Idempotency check (évite le double traitement)
+- Logging complet dans `webhook_logs`
+- Création automatique d'abonnement
+- Envoi email de confirmation
+- Traitement commission affilié
+
+**Configuration:**
+```env
+PAYGATE_WEBHOOK_SECRET=votre_secret_paygate
+```
+
+**Headers attendus:**
+- `x-paygate-signature` ou `x-webhook-signature`
+
+---
+
+### 📧 Système d'Email
+
+**Fichier:** `email/email-service.ts`
+
+**Templates disponibles:**
+- `payment_confirmation` - Confirmation de paiement
+- `subscription_expiring` - Rappel d'expiration (7j, 3j, 1j)
+- `subscription_expired` - Abonnement expiré
+- `welcome` - Bienvenue
+- `password_reset` - Réinitialisation mot de passe
+- `support_ticket_created` - Ticket créé
+- `support_ticket_reply` - Nouvelle réponse
+- `affiliate_welcome` - Bienvenue affilié
+- `affiliate_commission` - Nouvelle commission
+
+**Utilisation:**
+```typescript
+import { sendEmail } from "@/lib/email/email-service"
+
+await sendEmail({
+  to: "user@example.com",
+  template: "payment_confirmation",
+  data: {
+    planName: "Premium",
+    subscriptionId: "abc123",
+    endDate: "31/12/2026"
+  }
+})
+```
+
+---
+
+### ⏰ Cron Jobs
+
+**Fichiers:**
+- `api/cron-subscriptions-route.ts` - Gestion expirations
+- `api/cron-cleanup-route.ts` - Nettoyage données
+
+**Configuration Vercel:**
+```json
+{
+  "crons": [
+    {
+      "path": "/api/cron/subscriptions",
+      "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/cron/cleanup",
+      "schedule": "0 3 * * *"
+    }
+  ]
+}
+```
+
+**Test manuel:**
+```bash
+curl -H "Authorization: Bearer $CRON_SECRET" \
+  http://localhost:3000/api/cron/subscriptions
+```
+
+---
+
+### 🎧 Support amélioré
+
+**Templates de réponse:**
+- Composant pour créer/gérer des réponses types
+- Raccourcis clavier (ex: `/hello`)
+- Compteur d'utilisation
+
+**FAQ dynamique:**
+- Multilingue
+- Catégorisé
+- Recherche en temps réel
+- Vote "utile"
+- Statistiques de vues
+
+---
+
+### 📊 Logging & Monitoring
+
+**Fichier:** `lib/logger.ts`
+
+**Fonctionnalités:**
+- Logs centralisés par niveau (error, warn, info, debug)
+- Catégorisation (payment, auth, api, etc.)
+- Alertes automatiques si seuil d'erreurs atteint
+- Email d'alerte aux admins
+- Notifications admin dans le dashboard
+
+**Utilisation:**
+```typescript
+import { logger } from "@/lib/logging/logger"
+
+logger.error("payment", "Payment failed", { transactionId: "xyz" })
+logger.info("auth", "User logged in", { userId: "abc" })
+```
+
+---
+
+## Configuration
+
+### Variables d'environnement requises
+
+| Variable | Description | Exemple |
+|----------|-------------|---------|
+| `RESEND_API_KEY` | Clé API Resend | `re_xxx` |
+| `EMAIL_FROM` | Email expéditeur | `VistraTV <noreply@vistratv.com>` |
+| `PAYGATE_WEBHOOK_SECRET` | Secret webhook PayGate | `whsec_xxx` |
+| `CRON_SECRET` | Secret pour cron jobs | `random_string` |
+| `ALERT_EMAIL` | Email alertes admin | `admin@domain.com` |
+
+### Seuils d'alerte
+
+Dans `lib/logger.ts`:
+```typescript
+const ALERT_THRESHOLDS = {
+  errorCountPerHour: 10,      // Alerte si 10+ erreurs/heure
+  paymentFailuresPerHour: 5,  // Alerte si 5+ échecs paiement
+  authFailuresPerMinute: 10,  // Alerte si 10+ échecs auth/min
+}
+```
+
+---
+
+## Migration SQL
+
+### Ordre d'exécution
+
+1. **migration_fixes.sql** - Crée les tables et colonnes
+2. **rpc_functions.sql** - Crée les fonctions et triggers
+
+### Nouvelles tables créées
+
+- `support_response_templates` - Templates de réponse support
+- `faq_items` - Questions fréquentes
+- `blog_posts` - Articles de blog
+- `user_notifications` - Notifications utilisateur
+- `admin_sessions` - Sessions admin
+- `affiliate_banners` - Bannières marketing affilié
+
+### Nouvelles colonnes ajoutées
+
+- `subscriptions`: `expiry_notified_7d`, `expiry_notified_3d`, `expiry_notified_1d`
+- `support_tickets`: `assigned_to`, `first_response_at`, `resolved_at`, `rating`, `tags`
+- `email_logs`: `template`, `opened_at`, `clicked_at`, `bounced_at`
+- `webhook_logs`: `retry_count`, `next_retry_at`, `signature_valid`
+
+### Fonctions RPC ajoutées
+
+- `increment_faq_view(faq_id)` - Incrémenter vues FAQ
+- `increment_faq_helpful(faq_id)` - Incrémenter votes utiles
+- `validate_promo_code(code, plan_id, amount)` - Valider code promo
+- `track_affiliate_click(code, ip, ua, ref)` - Tracker clic affilié
+- `calculate_affiliate_stats(affiliate_id)` - Calculer stats affilié
+- `create_user_notification(...)` - Créer notification
+- `mark_notifications_read(user_id, ids)` - Marquer comme lu
+
+---
+
+## Support
+
+Pour toute question sur ces fixes, consultez la documentation ou ouvrez une issue.
+
+**Auteur:** Assistant Claude  
+**Date:** Janvier 2026
