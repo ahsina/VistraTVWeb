@@ -400,21 +400,29 @@ export default function ClientPage() {
       <Header />
 
       <main className="relative min-h-screen overflow-hidden">
-        <LightParticles />
+        {/* SEO: aria-hidden sur les éléments purement décoratifs */}
+        <div aria-hidden="true">
+          <LightParticles />
+        </div>
 
-        {/* Background blur circles */}
-        <div className="blur-circle blur-circle-purple w-[600px] h-[600px] top-0 right-0 float-animation" />
+        {/* Background blur circles - SEO: aria-hidden="true" pour les éléments décoratifs */}
+        <div 
+          className="blur-circle blur-circle-purple w-[600px] h-[600px] top-0 right-0 float-animation" 
+          aria-hidden="true"
+        />
         <div
           className="blur-circle blur-circle-pink w-[500px] h-[500px] bottom-0 right-0 float-animation"
           style={{ animationDelay: "1s" }}
+          aria-hidden="true"
         />
         <div
           className="blur-circle blur-circle-blue w-[400px] h-[400px] top-1/2 left-0 float-animation"
           style={{ animationDelay: "2s" }}
+          aria-hidden="true"
         />
 
         {/* Main gradient background */}
-        <div className="fixed inset-0 bg-gradient-main -z-10" />
+        <div className="fixed inset-0 bg-gradient-main -z-10" aria-hidden="true" />
 
         {/* Marketing Conversion Components */}
         <UrgencyBanner />
@@ -422,7 +430,7 @@ export default function ClientPage() {
         <RecentPurchases />
         <StickyCtaBar />
 
-        {/* Sections */}
+        {/* Hero Section (ChannelShowcase) - SEO: doit contenir le H1 de la page */}
         <FadeIn direction="up" duration={0.6}>
           <ChannelShowcase
             categories={categories}

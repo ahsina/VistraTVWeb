@@ -1,76 +1,258 @@
-export { Film } from "lucide-react"
-export { Calendar } from "lucide-react"
-export { LayoutDashboard } from "lucide-react"
-export { FileText } from "lucide-react"
-export { Tv } from "lucide-react"
-export { CreditCard } from "lucide-react"
-export { BookOpen } from "lucide-react"
-export { Users } from "lucide-react"
-export { Settings } from "lucide-react"
-export { DollarSign } from "lucide-react"
-export { MessageSquare } from "lucide-react"
-export { TrendingUp } from "lucide-react"
-export { Sparkles } from "lucide-react"
-export { LogOut } from "lucide-react"
-export { Menu } from "lucide-react"
-export { Plus } from "lucide-react"
-export { Search } from "lucide-react"
-export { Edit } from "lucide-react"
-export { Trash2 } from "lucide-react"
-export { RefreshCw } from "lucide-react"
-export { X } from "lucide-react"
-export { Download } from "lucide-react"
-export { Filter } from "lucide-react"
-export { AlertCircle } from "lucide-react"
-export { Clock } from "lucide-react"
-export { CheckCircle } from "lucide-react"
-export { UserCheck } from "lucide-react"
-export { UserX } from "lucide-react"
-export { Eye } from "lucide-react"
-export { User } from "lucide-react"
-export { Database } from "lucide-react"
-export { Key } from "lucide-react"
-export { Save } from "lucide-react"
-export { Image } from "lucide-react"
-export { ChevronLeft } from "lucide-react"
-export { ChevronRight } from "lucide-react"
-export { Play } from "lucide-react"
-export { Star } from "lucide-react"
-export { Check } from "lucide-react"
-export { CheckCheck } from "lucide-react"
-export { CheckCircle2 } from "lucide-react"
-export { Shield } from "lucide-react"
-export { MessageCircle } from "lucide-react"
-export { ChevronDown } from "lucide-react"
-export { HelpCircle } from "lucide-react"
-export { Laptop } from "lucide-react"
-export { Smartphone } from "lucide-react"
-export { Tablet } from "lucide-react"
-export { Monitor } from "lucide-react"
-export { Zap } from "lucide-react"
-export { Send } from "lucide-react"
-export { UserCog } from "lucide-react"
-export { Globe } from "lucide-react"
-export { Facebook } from "lucide-react"
-export { Twitter } from "lucide-react"
-export { Instagram } from "lucide-react"
-export { Youtube } from "lucide-react"
-export { Mail } from "lucide-react"
-export { Phone } from "lucide-react"
-export { ArrowLeft } from "lucide-react"
-export { Gift } from "lucide-react"
-export { Megaphone } from "lucide-react"
-export { Tag } from "lucide-react"
-export { Copy } from "lucide-react"
-export { UserPlus } from "lucide-react"
-export { XCircle } from "lucide-react"
-export { Pause } from "lucide-react"
-export { ExternalLink } from "lucide-react"
-export { Lock } from "lucide-react"
-export { Wallet } from "lucide-react"
-export { Link } from "lucide-react"
-export { Loader2 } from "lucide-react"
-export { Bell } from "lucide-react"
-export { Activity } from "lucide-react"
-export { BarChart3 } from "lucide-react"
-export { Table } from "lucide-react"
+// lib/icons.ts
+// REMPLACE entièrement ton fichier lib/icons.ts par celui-ci
+// Toutes les icônes sont vérifiées et existent dans lucide-react
+
+export {
+  // Navigation & UI
+  Menu,
+  X,
+  ChevronDown,
+  ChevronUp,
+  ChevronLeft,
+  ChevronRight,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  ArrowDown,
+  ExternalLink,
+  
+  // Actions
+  Play,
+  Pause,
+  Search,
+  Filter,
+  Plus,
+  Minus,
+  Edit,
+  Trash2,
+  Copy,
+  Download,
+  Upload,
+  Share2,
+  Send,
+  Save,
+  RefreshCw,
+  RotateCw,
+  
+  // Status & Alerts
+  Check,
+  CheckCheck,
+  CheckCircle,
+  CheckCircle2,
+  XCircle,
+  AlertCircle,
+  AlertTriangle,
+  Info,
+  HelpCircle,
+  Bell,
+  BellRing,
+  Loader2,
+  
+  // User & Auth
+  User,
+  Users,
+  UserPlus,
+  UserMinus,
+  UserCheck,
+  UserX,
+  UserCog,
+  LogIn,
+  LogOut,
+  Lock,
+  Unlock,
+  Key,
+  Shield,
+  ShieldCheck,
+  
+  // Communication
+  Mail,
+  MessageSquare,
+  MessageCircle,
+  Phone,
+  Video,
+  
+  // Media & Content
+  Image,
+  ImagePlus,
+  Film,
+  Tv,
+  Monitor,
+  Laptop,
+  Smartphone,
+  Tablet,
+  Camera,
+  Mic,
+  Volume2,
+  VolumeX,
+  
+  // Files & Documents
+  File,
+  FileText,
+  Folder,
+  FolderOpen,
+  FileDown,
+  FileUp,
+  Bookmark,
+  BookOpen,
+  
+  // E-commerce & Finance
+  CreditCard,
+  DollarSign,
+  Euro,
+  Wallet,
+  ShoppingCart,
+  ShoppingBag,
+  Package,
+  Gift,
+  Tag,
+  Percent,
+  Receipt,
+  
+  // Time & Calendar
+  Clock,
+  Timer,
+  Calendar,
+  CalendarDays,
+  
+  // Location
+  MapPin,
+  Globe,
+  Map,
+  Navigation,
+  
+  // Settings & Tools
+  Settings,
+  Cog,
+  Sliders,
+  Wrench,
+  
+  // Charts & Analytics
+  BarChart,
+  BarChart2,
+  BarChart3,
+  LineChart,
+  PieChart,
+  TrendingUp,
+  TrendingDown,
+  Activity,
+  
+  // Social
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  Linkedin,
+  Github,
+  
+  // Dashboard & Layout
+  LayoutDashboard,
+  LayoutGrid,
+  LayoutList,
+  Layout,
+  Grid,
+  List,
+  Table,
+  Columns,
+  Rows,
+  
+  // Marketing
+  Megaphone,
+  
+  // Misc
+  Star,
+  Heart,
+  ThumbsUp,
+  ThumbsDown,
+  Eye,
+  EyeOff,
+  Sun,
+  Moon,
+  Cloud,
+  Zap,
+  Flame,
+  Sparkles,
+  Award,
+  Crown,
+  Target,
+  Crosshair,
+  MousePointer,
+  MousePointerClick,
+  Pointer,
+  Hand,
+  Grip,
+  GripVertical,
+  MoreHorizontal,
+  MoreVertical,
+  Home,
+  Building,
+  Store,
+  Briefcase,
+  Inbox,
+  Archive,
+  Layers,
+  Box,
+  Boxes,
+  Wifi,
+  WifiOff,
+  Bluetooth,
+  Battery,
+  BatteryCharging,
+  Power,
+  Plug,
+  Headphones,
+  Speaker,
+  Radio,
+  Tv2,
+  Cast,
+  Airplay,
+  ScreenShare,
+  Maximize,
+  Minimize,
+  Expand,
+  Shrink,
+  ZoomIn,
+  ZoomOut,
+  Move,
+  Scissors,
+  Clipboard,
+  ClipboardCheck,
+  ClipboardList,
+  Link,
+  Link2,
+  Unlink,
+  Paperclip,
+  Pin,
+  PinOff,
+  Flag,
+  Hash,
+  AtSign,
+  Terminal,
+  Code,
+  Code2,
+  Braces,
+  Database,
+  Server,
+  HardDrive,
+  Cpu,
+  CircuitBoard,
+  Binary,
+  QrCode,
+  Scan,
+  ScanLine,
+  Fingerprint,
+  KeyRound,
+  BadgeCheck,
+  CircleDot,
+  Circle,
+  Square,
+  Triangle,
+  Hexagon,
+  Octagon,
+  Pentagon,
+  PenTool,
+} from "lucide-react"
+
+// Aliases pour compatibilité (certains composants utilisent d'anciens noms)
+export { Wrench as Tool } from "lucide-react"
+export { BadgeCheck as Verified } from "lucide-react"
+export { Bookmark as BookmarkIcon } from "lucide-react"

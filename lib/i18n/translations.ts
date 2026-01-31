@@ -678,3 +678,12 @@ export function isRTL(locale: Language): boolean {
 }
 
 export default translations
+
+// AJOUTE ces lignes à la fin de ton fichier lib/i18n/translations.ts
+
+export type TranslationKeys = Record<string, string>
+
+export function getTranslation(locale: string): TranslationKeys {
+  const validLocale = locale as Language
+  return translations[validLocale] || translations.fr
+}

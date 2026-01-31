@@ -103,3 +103,19 @@ function getIdentifier(request: NextRequest): string {
 
   return cfConnectingIp || forwarded?.split(",")[0] || realIp || "unknown"
 }
+
+
+// AJOUTE ces lignes à la fin de ton fichier lib/middleware/rate-limiter.ts
+
+// Alias pour compatibilité avec les imports existants
+export async function applyRateLimit(
+  request: NextRequest,
+  endpoint: string,
+  maxRequests: number = 100
+): Promise<{ success: boolean; remaining: number }> {
+  const result = await checkRateLimit(request, endpoint, { maxRequests, windowMs: 60000 })
+  return {
+    success: result.allowed,
+    remaining: result.remaining,
+  }
+}

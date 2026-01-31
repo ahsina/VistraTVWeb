@@ -3,7 +3,6 @@
 import { useState, useMemo, useEffect } from "react"
 import { ChannelLogo } from "@/components/shared/ChannelLogo"
 import { Carousel } from "@/components/ui/carousel"
-import { SectionTitle } from "@/components/ui/section-title"
 import type { ChannelShowcaseProps } from "@/lib/types"
 import Image from "next/image"
 import { useLanguage } from "@/lib/i18n/LanguageContext"
@@ -53,8 +52,12 @@ export function ChannelShowcase({
   }, [totalChannels])
 
   return (
-    <section className="container mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-16 lg:py-20 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <section 
+      aria-labelledby="hero-title"
+      className="container mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-16 lg:py-20 relative overflow-hidden"
+    >
+      {/* Éléments décoratifs - SEO: aria-hidden pour les lecteurs d'écran */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
@@ -74,9 +77,21 @@ export function ChannelShowcase({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content */}
           <div className="animate-[fadeInUp_0.8s_ease-out]">
-            <SectionTitle align="left" className="mb-6 sm:mb-8 animate-[shimmer_3s_ease-in-out_infinite]">
-              {t.channelShowcase.title}
-            </SectionTitle>
+            {/* SEO: H1 unique pour la page - remplace SectionTitle */}
+            <div className="mb-6 sm:mb-8">
+              <h1 
+                id="hero-title"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 relative inline-block"
+              >
+                {/* Glow effect behind text */}
+                <span className="absolute inset-0 blur-xl bg-gradient-to-r from-[#00d4ff] via-[#e94b87] to-[#00d4ff] opacity-50 animate-pulse" aria-hidden="true" />
+                
+                {/* Main gradient text with animation */}
+                <span className="relative bg-gradient-to-r from-[#00d4ff] via-[#e94b87] to-[#00d4ff] bg-clip-text text-transparent bg-[length:200%_auto] animate-shimmer">
+                  {t.channelShowcase?.title || "Le Meilleur IPTV en France"}
+                </span>
+              </h1>
+            </div>
 
             <div className="mb-6 sm:mb-8 space-y-3">
               <p className="text-white/90 text-base sm:text-lg font-medium">
@@ -84,15 +99,15 @@ export function ChannelShowcase({
               </p>
               <div className="flex flex-wrap gap-3 sm:gap-4">
                 <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  <CheckCircle className="w-4 h-4 text-green-400" aria-hidden="true" />
                   <span className="text-white/90 text-xs sm:text-sm font-medium">Essai gratuit 48h</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full">
-                  <Shield className="w-4 h-4 text-cyan-400" />
+                  <Shield className="w-4 h-4 text-cyan-400" aria-hidden="true" />
                   <span className="text-white/90 text-xs sm:text-sm font-medium">Sans engagement</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full">
-                  <Zap className="w-4 h-4 text-yellow-400" />
+                  <Zap className="w-4 h-4 text-yellow-400" aria-hidden="true" />
                   <span className="text-white/90 text-xs sm:text-sm font-medium">Satisfait ou remboursé</span>
                 </div>
               </div>
@@ -183,13 +198,13 @@ export function ChannelShowcase({
 
             <div className="flex flex-col items-center mb-6 sm:mb-8 animate-[fadeIn_1s_ease-out_0.5s_forwards] opacity-0">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[slideShine_3s_ease-in-out_infinite]" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[slideShine_3s_ease-in-out_infinite]" aria-hidden="true" />
                 <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold bg-gradient-to-r from-[#00d4ff] via-[#00f5ff] to-[#00d4ff] bg-clip-text text-transparent animate-[gradientShift_3s_ease-in-out_infinite] mb-2">
                   + {displayCount.toLocaleString()}
                 </div>
               </div>
               <div className="text-sm sm:text-base lg:text-lg text-white font-medium animate-[pulse_2s_ease-in-out_infinite]">
-                {t.channelShowcase.channelsCount}
+                {t.channelShowcase?.channelsCount || "chaînes disponibles"}
               </div>
             </div>
 
@@ -197,6 +212,7 @@ export function ChannelShowcase({
               <Button
                 onClick={() => (window.location.href = "/subscriptions")}
                 size="lg"
+                aria-label="Voir nos abonnements IPTV et commencer l'essai gratuit"
                 className="w-full sm:w-auto bg-gradient-to-r from-[#00d4ff] via-[#e94b87] to-[#ff6b35] hover:opacity-90 transition-all text-white font-bold px-8 py-6 text-lg rounded-xl shadow-2xl shadow-[#00d4ff]/40 hover:shadow-[#00d4ff]/60 hover:scale-105"
               >
                 Commencer l'essai gratuit 🎉
@@ -219,20 +235,28 @@ export function ChannelShowcase({
             </div>
           </div>
 
+          {/* Right Content - Image */}
           <div className="hidden md:flex items-center justify-center animate-[slideInRight_1s_ease-out] relative mt-8 md:mt-0">
             <div className="relative animate-[float_6s_ease-in-out_infinite]">
-              <div className="absolute inset-0 pointer-events-none">
+              {/* Decorative rings - SEO: aria-hidden */}
+              <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
                 <div className="absolute inset-[-40px] rounded-full border-2 border-[#00d4ff]/30 animate-[spin_20s_linear_infinite]" />
                 <div className="absolute inset-[-60px] rounded-full border-2 border-[#ff1e9f]/30 animate-[spin_15s_linear_infinite_reverse]" />
               </div>
 
-              <div className="absolute inset-0 bg-gradient-to-r from-[#00d4ff]/20 via-[#ff1e9f]/20 to-[#00d4ff]/20 blur-xl animate-[pulse_3s_ease-in-out_infinite]" />
+              {/* Glow effect - SEO: aria-hidden */}
+              <div 
+                className="absolute inset-0 bg-gradient-to-r from-[#00d4ff]/20 via-[#ff1e9f]/20 to-[#00d4ff]/20 blur-xl animate-[pulse_3s_ease-in-out_infinite]" 
+                aria-hidden="true"
+              />
 
+              {/* SEO: Image with descriptive alt text */}
               <Image
                 src="/images/hero.png"
-                alt="Smart TV avec chaînes payantes"
+                alt="Interface VistraTV sur Smart TV affichant les chaînes IPTV en direct - Sports, Films, Séries en HD 4K"
                 width={600}
                 height={500}
+                priority
                 className="relative rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-500 hover:shadow-[0_0_80px_rgba(0,212,255,0.5)] w-full max-w-[400px] md:max-w-[500px] lg:max-w-[600px] h-auto"
               />
             </div>

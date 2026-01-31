@@ -61,3 +61,12 @@ export const logger = {
   debug: (category: LogCategory, message: string, metadata?: Record<string, any>) =>
     logToDatabase({ level: "debug", category, message, metadata }),
 }
+
+
+export async function logActivity(action: string, details?: any) {
+  console.log("[Activity]", action, details)
+}
+
+export async function logWebhook(provider: string, status: string, data?: any) {
+  console.log("[Webhook]", provider, status, data)
+}
