@@ -1,344 +1,185 @@
-# 🔧 VistraTV - Fixes et Améliorations COMPLETS
+# 🔧 VistraTV - Fixes de Sécurité et UX
 
-Ce dossier contient **TOUS** les fichiers de correction et d'amélioration pour la plateforme VistraTV.
+## 📋 Liste des Corrections Implémentées
 
-## 📊 Résumé des implémentations
+### ✅ 1. Checkbox CGV sur Checkout
+- **Fichier**: `app/checkout/page.tsx`
+- **Description**: Ajout d'une checkbox obligatoire pour accepter les CGV et la politique de confidentialité
+- **Légalement requis**: Oui
 
-| Catégorie | Total fixes | Implémentés |
-|-----------|-------------|-------------|
-| AUTH | 6 | ✅ 6 |
-| PAYMENT | 8 | ✅ 8 |
-| SUBSCRIPTION | 6 | ✅ 6 |
-| SUPPORT | 7 | ✅ 7 |
-| EMAIL | 5 | ✅ 5 |
-| I18N | 6 | ✅ 6 |
-| ANALYTICS | 7 | ✅ 7 |
-| ADMIN | 8 | ✅ 8 |
-| CONTENT | 7 | ✅ 7 |
-| AFFILIATE | 7 | ✅ 7 |
-| PROMO | 5 | ✅ 5 |
-| MARKETING | 5 | ✅ 5 |
-| BLOG | 6 | ✅ 6 |
-| NOTIFICATIONS | 5 | ✅ 5 |
-| LOGGING | 5 | ✅ 5 |
-| **TOTAL** | **93** | **✅ 93** |
+### ✅ 2. Remplacement des alert() par Toast Notifications
+- **Fichiers**: `app/checkout/page.tsx`, `app/register/RegisterClientPage.tsx`, `app/login/login-client.tsx`
+- **Description**: Tous les `alert()` et `confirm()` remplacés par des toasts élégants
+- **Amélioration UX**: Significative
 
-## 📋 Table des matières
+### ✅ 3. Cloudflare Turnstile (CAPTCHA)
+- **Fichiers**: 
+  - `components/ui/turnstile.tsx` (composant)
+  - `app/api/verify-turnstile/route.ts` (API de vérification)
+  - `app/checkout/page.tsx`
+  - `app/register/RegisterClientPage.tsx`
+  - `app/support/page.tsx`
+- **Description**: Protection anti-bot sur les formulaires critiques
+- **Configuration requise**: Clés API Cloudflare (voir `.env.turnstile.example`)
 
-1. [Vue d'ensemble](#vue-densemble)
-2. [Installation rapide](#installation-rapide)
-3. [Détail des fixes](#détail-des-fixes)
-4. [Configuration](#configuration)
-5. [Migration SQL](#migration-sql)
+### ✅ 4. Validation Password Renforcée
+- **Fichiers**: 
+  - `components/ui/password-strength.tsx` (composant indicateur)
+  - `lib/utils/validation.ts` (fonctions de validation)
+  - `app/api/auth/register/route.ts` (validation côté serveur)
+- **Règles**:
+  - Minimum 8 caractères
+  - Au moins 1 majuscule
+  - Au moins 1 minuscule
+  - Au moins 1 chiffre
+  - Indicateur visuel de force
+
+### ✅ 5. Validation WhatsApp Améliorée
+- **Fichier**: `lib/utils/validation.ts`
+- **Description**: Validation du format international (+XX...)
+- **Règles**:
+  - Doit commencer par +
+  - Minimum 8 caractères
+  - Maximum 16 caractères
+  - Uniquement des chiffres après le +
+
+### ✅ 6. Messages d'Erreur Login Sécurisés
+- **Fichier**: `app/login/login-client.tsx`
+- **Description**: Message générique "Identifiants incorrects" pour ne pas révéler si l'email existe
+- **Sécurité**: Prévention d'énumération d'utilisateurs
+
+### ✅ 7. Email de Bienvenue
+- **Fichiers**:
+  - `lib/email/templates/welcome.ts` (template HTML/texte)
+  - `app/api/auth/register/route.ts` (envoi automatique)
+- **Description**: Email envoyé automatiquement après inscription
+
+### ✅ 8. Traductions Complètes
+- **Fichier**: `lib/i18n/translations-additions.ts`
+- **Description**: Toutes les nouvelles clés de traduction (FR, EN, AR, ES, IT)
 
 ---
 
-## Vue d'ensemble
+## 🚀 Installation
 
-### Fixes critiques implémentés
-
-| ID | Description | Fichier | Priorité |
-|----|-------------|---------|----------|
-| AUTH-001 | Middleware de protection des routes | `middleware.ts` | 🔴 Critique |
-| PAY-001/002 | Sécurité webhook avec HMAC | `payment/webhook-route.ts` | 🔴 Critique |
-| PAY-007 | Emails de confirmation paiement | `email/email-service.ts` | 🔴 Critique |
-| SUB-001/002 | Cron job expiration abonnements | `api/cron-subscriptions-route.ts` | 🔴 Critique |
-| SUP-001 | Notification email sur réponse support | `api/support-messages-route.ts` | 🟠 Important |
-| SUP-002 | Templates de réponse rapide | `components/support-response-templates.tsx` | 🟠 Important |
-| SUP-005 | FAQ dynamique | `components/dynamic-faq.tsx` | 🟠 Important |
-| I18N-002 | Détection auto langue navigateur | `i18n/LanguageContext.tsx` | 🟡 Standard |
-| LOG-001 | Dashboard logs temps réel | `components/logs-dashboard.tsx` | 🟡 Standard |
-| LOG-002 | Alertes sur erreurs critiques | `lib/logger.ts` | 🟡 Standard |
-
----
-
-## Installation rapide
-
-### 1. Copier les fichiers
+### Étape 1: Copier les fichiers
 
 ```bash
-# Depuis le dossier vistratv-fixes/
-
-# Middleware (à la racine du projet)
-cp middleware.ts /votre-projet/middleware.ts
-
-# Lib
-cp lib/supabase-admin.ts /votre-projet/lib/supabase/admin.ts
-cp lib/rate-limiter.ts /votre-projet/lib/utils/rate-limiter.ts
-cp lib/logger.ts /votre-projet/lib/logging/logger.ts
-cp email/email-service.ts /votre-projet/lib/email/email-service.ts
-cp i18n/LanguageContext.tsx /votre-projet/lib/i18n/LanguageContext.tsx
-
-# API Routes
-cp payment/webhook-route.ts /votre-projet/app/api/payment/webhook/route.ts
-cp api/email-send-route.ts /votre-projet/app/api/email/send/route.ts
-cp api/cron-subscriptions-route.ts /votre-projet/app/api/cron/subscriptions/route.ts
-cp api/cron-cleanup-route.ts /votre-projet/app/api/cron/cleanup/route.ts
-cp api/support-messages-route.ts /votre-projet/app/api/support/tickets/[ticketId]/messages/route.ts
-
-# Components
-cp components/support-response-templates.tsx /votre-projet/components/admin/support-response-templates.tsx
-cp components/dynamic-faq.tsx /votre-projet/components/faq/dynamic-faq.tsx
-cp components/faq-manager.tsx /votre-projet/components/admin/faq-manager.tsx
-cp components/logs-dashboard.tsx /votre-projet/components/admin/logs-dashboard.tsx
-cp components/user-subscription-card.tsx /votre-projet/components/dashboard/user-subscription-card.tsx
-
-# Pages
-cp pages/faq-page.tsx /votre-projet/app/faq/page.tsx
-cp pages/admin-support-templates-page.tsx /votre-projet/app/admin/dashboard/support/templates/page.tsx
-
-# Config
-cp vercel.json /votre-projet/vercel.json
-cp .env.example /votre-projet/.env.example
+# Depuis le dossier fixes/
+cp -r components/ui/turnstile.tsx ../components/ui/
+cp -r components/ui/password-strength.tsx ../components/ui/
+cp -r lib/utils/validation.ts ../lib/utils/
+cp -r lib/email/templates/welcome.ts ../lib/email/templates/
+cp -r app/api/verify-turnstile ../app/api/
+cp -r app/checkout/page.tsx ../app/checkout/
+cp -r app/register/RegisterClientPage.tsx ../app/register/
+cp -r app/login/login-client.tsx ../app/login/
+cp -r app/support/page.tsx ../app/support/
+cp -r app/api/auth/register/route.ts ../app/api/auth/register/
 ```
 
-### 2. Exécuter les migrations SQL
+### Étape 2: Configurer Cloudflare Turnstile
 
-```bash
-# Dans l'éditeur SQL de Supabase, exécuter dans l'ordre:
-
-# 1. Migration principale
-scripts/migration_fixes.sql
-
-# 2. Fonctions RPC
-scripts/rpc_functions.sql
-```
-
-### 3. Configurer les variables d'environnement
-
-Ajoutez ces variables à votre `.env.local`:
+1. Allez sur https://dash.cloudflare.com/turnstile
+2. Créez un nouveau widget pour votre domaine
+3. Ajoutez les clés dans `.env.local`:
 
 ```env
-# Emails
-RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxx
-EMAIL_FROM=VistraTV <noreply@vistratv.com>
-ALERT_EMAIL=admin@vistratv.com
-
-# Webhook Security
-PAYGATE_WEBHOOK_SECRET=votre_secret_webhook
-
-# Cron Jobs
-CRON_SECRET=une_cle_secrete_aleatoire
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=votre_site_key
+TURNSTILE_SECRET_KEY=votre_secret_key
 ```
 
-### 4. Installer les dépendances
+### Étape 3: Fusionner les traductions
+
+Ajoutez le contenu de `lib/i18n/translations-additions.ts` dans votre fichier `translations.ts` existant.
+
+### Étape 4: Vérifier les dépendances
+
+Assurez-vous d'avoir le composant Checkbox de shadcn/ui:
+```bash
+npx shadcn-ui@latest add checkbox
+```
+
+### Étape 5: Redémarrer le serveur
 
 ```bash
-npm install resend
-# ou
-yarn add resend
+npm run dev
 ```
 
 ---
 
-## Détail des fixes
+## 🧪 Tests à Effectuer
 
-### 🔐 AUTH-001: Middleware de protection des routes
+### Checkout (`/checkout?planId=xxx`)
+- [ ] La checkbox CGV est visible et obligatoire
+- [ ] Le Turnstile s'affiche correctement
+- [ ] Les erreurs apparaissent en toast (pas alert)
+- [ ] La validation email fonctionne
+- [ ] La validation WhatsApp fonctionne (+XX format)
+- [ ] Le paiement ne peut pas être initié sans accepter les CGV
 
-**Fichier:** `middleware.ts`
+### Register (`/register`)
+- [ ] L'indicateur de force de mot de passe s'affiche
+- [ ] Le Turnstile s'affiche correctement
+- [ ] La validation du mot de passe (maj, min, chiffre) fonctionne
+- [ ] L'email de bienvenue est envoyé après inscription
+- [ ] Les erreurs apparaissent en toast
 
-**Fonctionnalités:**
-- Protection des routes utilisateur (`/dashboard`, `/affiliate`)
-- Protection des routes admin (`/admin/dashboard/*`)
-- Protection des routes API admin (`/api/admin/*`)
-- Redirection automatique si non authentifié
-- Redirection si déjà connecté sur pages auth
+### Login (`/login`)
+- [ ] Les erreurs utilisent un message générique
+- [ ] Aucune information sur l'existence de l'email n'est révélée
+- [ ] Les toasts fonctionnent correctement
 
-**Test:**
-```bash
-# Non connecté → redirigé vers /login
-curl http://localhost:3000/dashboard
-
-# Utilisateur non-admin → redirigé vers /
-curl http://localhost:3000/admin/dashboard
-```
+### Support (`/support`)
+- [ ] Le Turnstile s'affiche correctement
+- [ ] La validation des champs fonctionne
+- [ ] Le ticket est créé avec succès
+- [ ] Les erreurs apparaissent en toast
 
 ---
 
-### 💳 PAY-001/002: Sécurité Webhook
+## 🔐 Sécurité
 
-**Fichier:** `payment/webhook-route.ts`
+### Turnstile - Clés de Test
+Pour le développement, utilisez ces clés de test Cloudflare:
+- **Site Key (toujours passe)**: `1x00000000000000000000AA`
+- **Secret Key (toujours passe)**: `1x0000000000000000000000000000000AA`
 
-**Fonctionnalités:**
-- Vérification signature HMAC (SHA256)
-- Idempotency check (évite le double traitement)
-- Logging complet dans `webhook_logs`
-- Création automatique d'abonnement
-- Envoi email de confirmation
-- Traitement commission affilié
-
-**Configuration:**
+### Variables d'Environnement Requises
 ```env
-PAYGATE_WEBHOOK_SECRET=votre_secret_paygate
-```
+# Cloudflare Turnstile
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=xxx
+TURNSTILE_SECRET_KEY=xxx
 
-**Headers attendus:**
-- `x-paygate-signature` ou `x-webhook-signature`
-
----
-
-### 📧 Système d'Email
-
-**Fichier:** `email/email-service.ts`
-
-**Templates disponibles:**
-- `payment_confirmation` - Confirmation de paiement
-- `subscription_expiring` - Rappel d'expiration (7j, 3j, 1j)
-- `subscription_expired` - Abonnement expiré
-- `welcome` - Bienvenue
-- `password_reset` - Réinitialisation mot de passe
-- `support_ticket_created` - Ticket créé
-- `support_ticket_reply` - Nouvelle réponse
-- `affiliate_welcome` - Bienvenue affilié
-- `affiliate_commission` - Nouvelle commission
-
-**Utilisation:**
-```typescript
-import { sendEmail } from "@/lib/email/email-service"
-
-await sendEmail({
-  to: "user@example.com",
-  template: "payment_confirmation",
-  data: {
-    planName: "Premium",
-    subscriptionId: "abc123",
-    endDate: "31/12/2026"
-  }
-})
+# Email (pour les emails de bienvenue)
+RESEND_API_KEY=xxx
 ```
 
 ---
 
-### ⏰ Cron Jobs
+## 📊 Récapitulatif des Améliorations
 
-**Fichiers:**
-- `api/cron-subscriptions-route.ts` - Gestion expirations
-- `api/cron-cleanup-route.ts` - Nettoyage données
-
-**Configuration Vercel:**
-```json
-{
-  "crons": [
-    {
-      "path": "/api/cron/subscriptions",
-      "schedule": "0 8 * * *"
-    },
-    {
-      "path": "/api/cron/cleanup",
-      "schedule": "0 3 * * *"
-    }
-  ]
-}
-```
-
-**Test manuel:**
-```bash
-curl -H "Authorization: Bearer $CRON_SECRET" \
-  http://localhost:3000/api/cron/subscriptions
-```
+| Aspect | Avant | Après |
+|--------|-------|-------|
+| Protection CAPTCHA | ❌ Aucune | ✅ Cloudflare Turnstile |
+| Checkbox CGV | ❌ Manquante | ✅ Obligatoire |
+| Feedback Utilisateur | ⚠️ alert() natifs | ✅ Toast notifications |
+| Validation Password | ⚠️ Min 8 chars | ✅ Maj+Min+Chiffre |
+| Validation WhatsApp | ⚠️ Min 8 chars | ✅ Format international |
+| Messages Erreur Login | ⚠️ Révèle info | ✅ Message générique |
+| Email Bienvenue | ❌ Non envoyé | ✅ Automatique |
+| Traductions | ⚠️ Incomplètes | ✅ 5 langues |
 
 ---
 
-### 🎧 Support amélioré
+## 🆘 Support
 
-**Templates de réponse:**
-- Composant pour créer/gérer des réponses types
-- Raccourcis clavier (ex: `/hello`)
-- Compteur d'utilisation
-
-**FAQ dynamique:**
-- Multilingue
-- Catégorisé
-- Recherche en temps réel
-- Vote "utile"
-- Statistiques de vues
+En cas de problème avec ces corrections, vérifiez :
+1. Les clés Turnstile sont correctement configurées
+2. Le composant Checkbox est installé
+3. Les imports dans les fichiers sont corrects
+4. Le service email (Resend) est configuré
 
 ---
 
-### 📊 Logging & Monitoring
-
-**Fichier:** `lib/logger.ts`
-
-**Fonctionnalités:**
-- Logs centralisés par niveau (error, warn, info, debug)
-- Catégorisation (payment, auth, api, etc.)
-- Alertes automatiques si seuil d'erreurs atteint
-- Email d'alerte aux admins
-- Notifications admin dans le dashboard
-
-**Utilisation:**
-```typescript
-import { logger } from "@/lib/logging/logger"
-
-logger.error("payment", "Payment failed", { transactionId: "xyz" })
-logger.info("auth", "User logged in", { userId: "abc" })
-```
-
----
-
-## Configuration
-
-### Variables d'environnement requises
-
-| Variable | Description | Exemple |
-|----------|-------------|---------|
-| `RESEND_API_KEY` | Clé API Resend | `re_xxx` |
-| `EMAIL_FROM` | Email expéditeur | `VistraTV <noreply@vistratv.com>` |
-| `PAYGATE_WEBHOOK_SECRET` | Secret webhook PayGate | `whsec_xxx` |
-| `CRON_SECRET` | Secret pour cron jobs | `random_string` |
-| `ALERT_EMAIL` | Email alertes admin | `admin@domain.com` |
-
-### Seuils d'alerte
-
-Dans `lib/logger.ts`:
-```typescript
-const ALERT_THRESHOLDS = {
-  errorCountPerHour: 10,      // Alerte si 10+ erreurs/heure
-  paymentFailuresPerHour: 5,  // Alerte si 5+ échecs paiement
-  authFailuresPerMinute: 10,  // Alerte si 10+ échecs auth/min
-}
-```
-
----
-
-## Migration SQL
-
-### Ordre d'exécution
-
-1. **migration_fixes.sql** - Crée les tables et colonnes
-2. **rpc_functions.sql** - Crée les fonctions et triggers
-
-### Nouvelles tables créées
-
-- `support_response_templates` - Templates de réponse support
-- `faq_items` - Questions fréquentes
-- `blog_posts` - Articles de blog
-- `user_notifications` - Notifications utilisateur
-- `admin_sessions` - Sessions admin
-- `affiliate_banners` - Bannières marketing affilié
-
-### Nouvelles colonnes ajoutées
-
-- `subscriptions`: `expiry_notified_7d`, `expiry_notified_3d`, `expiry_notified_1d`
-- `support_tickets`: `assigned_to`, `first_response_at`, `resolved_at`, `rating`, `tags`
-- `email_logs`: `template`, `opened_at`, `clicked_at`, `bounced_at`
-- `webhook_logs`: `retry_count`, `next_retry_at`, `signature_valid`
-
-### Fonctions RPC ajoutées
-
-- `increment_faq_view(faq_id)` - Incrémenter vues FAQ
-- `increment_faq_helpful(faq_id)` - Incrémenter votes utiles
-- `validate_promo_code(code, plan_id, amount)` - Valider code promo
-- `track_affiliate_click(code, ip, ua, ref)` - Tracker clic affilié
-- `calculate_affiliate_stats(affiliate_id)` - Calculer stats affilié
-- `create_user_notification(...)` - Créer notification
-- `mark_notifications_read(user_id, ids)` - Marquer comme lu
-
----
-
-## Support
-
-Pour toute question sur ces fixes, consultez la documentation ou ouvrez une issue.
-
-**Auteur:** Assistant Claude  
-**Date:** Janvier 2026
+*Fixes générés le 31/01/2026 pour VistraTV v2.0*
